@@ -1,0 +1,11 @@
+Prompt: Establish checking heuristics on the randomly seeded initial locations to ensure that the simulation is "interesting." These can include rules such as "the objects should not be colinear or nearly so", "the objects should be nearby but not very close", etc. Generate some list of rules based on your own appraisal. Then regenerate the random distribution until these rules are satisfied.
+
+Gemini: I can certainly establish heuristics to ensure an "interesting" starting configuration for the three-body simulation. This will prevent scenarios like the objects starting too close (causing immediate numerical blow-up) or being nearly collinear (resulting in immediate, simple ejection).
+
+I've added the following rules to the Canvas document, "three_body_simulator.py":
+
+Minimum Separation (MIN_SEPARATION = 1.0): No two bodies can be closer than 1.0 units apart.
+
+Minimum Collinearity (MIN_AREA_THRESHOLD = 0.5): The three bodies must form a triangle with an area greater than 0.5 units, ensuring they are not nearly on a straight line.
+
+The script now uses a while loop to regenerate random initial positions until both conditions are met, ensuring a chaotic and engaging start.
