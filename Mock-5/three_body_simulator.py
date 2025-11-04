@@ -5,15 +5,19 @@ import os # Import the os module for file path operations
 
 # === SIMULATION PARAMETERS (User-Configurable) ===
 # Masses of the three bodies
-M1 = 3
+M1 = 2.0
 M2 = 1.0
-M3 = 0.5
+M3 = 1.5
 
 # Gravitational Constant (G)
-G = 0.001
+G = 0.5
 
 # Simulation Time Step (determines resolution and speed)
-DT = 1
+DT = 0.005
+
+# Numerical Softening Factor (prevents division by zero/catastrophic forces on close approach)
+# This stabilizes the chaotic dynamics without significantly altering the physics at large distances.
+SOFTENING_EPSILON = 0.05 
 
 # Number of steps per frame update (controls animation speed vs. calculation load)
 STEPS_PER_FRAME = 10
@@ -72,13 +76,19 @@ class ThreeBodySimulator:
 
         # Distance between the bodies
         r = np.linalg.norm(r_vector)
+        
+        # Softening factor squared
+        epsilon_squared = SOFTENING_EPSILON**2
+        
+        # Denominator for the force magnitude: F = G * m1 * m2 / (r^2 + epsilon^2)
+        r_squared_softened = r**2 + epsilon_squared
 
+        # Gravitational force magnitude
+        magnitude = (self.G * body_i.mass * body_j.mass) / r_squared_softened
+
+        # If r is zero (though softening should prevent singularities, this is a fail-safe)
         if r == 0:
-            # Avoid division by zero if bodies collide/overlap
             return np.array([0.0, 0.0])
-
-        # Gravitational force magnitude: F = G * (m1 * m2) / r^2
-        magnitude = (self.G * body_i.mass * body_j.mass) / (r**2)
 
         # Force direction: a unit vector in the direction of r_vector
         direction = r_vector / r
@@ -123,7 +133,7 @@ simulator = ThreeBodySimulator(body_A, body_B, body_C, G)
 
 # --- MATPLOTLIB SETUP ---
 fig, ax = plt.subplots(figsize=(8, 8))
-ax.set_title(f"3-Body Problem Simulation (G={G}, dt={DT})")
+ax.set_title(f"3-Body Problem Simulation (G={G}, dt={DT}, $\\epsilon$={SOFTENING_EPSILON})")
 ax.set_xlabel("X Position")
 ax.set_ylabel("Y Position")
 ax.set_aspect('equal', adjustable='box')
@@ -224,7 +234,7 @@ if __name__ == '__main__':
         os.makedirs(OUTPUT_DIRECTORY)
 
     print("Running 3-Body Problem Simulation...")
-    print(f"G: {G}, dt: {DT}, Steps/Frame: {STEPS_PER_FRAME}")
+    print(f"G: {G}, dt: {DT}, Steps/Frame: {STEPS_PER_FRAME}, Softening: {SOFTENING_EPSILON}")
     print(f"Generating and saving animation to {output_path} (Total Frames: {FRAMES_TO_GENERATE}, GIF FPS: {GIF_FPS}). This may take a moment...")
 
     # Save the animation as a GIF using the 'pillow' writer
