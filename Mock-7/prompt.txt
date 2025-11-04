@@ -1,0 +1,11 @@
+Prompt: Change the script to initiate the three bodies at random locations within the frame of the plot.
+
+Gemini: I'd be happy to change the script to initiate the three bodies at random locations within the plot's frame.
+
+I've updated the initialization section in the Canvas document, "three_body_simulator.py", to use numpy.random.uniform to generate random starting coordinates for pos1, pos2, and pos3 within the bounds defined by AXIS_LIMIT.
+
+Prompt: Adjust the simulation to end when none of the three bodies remain in the frame
+
+Gemini: I will modify the Canvas document, "three_body_simulator.py", to introduce a custom frame generator. This generator will handle the simulation steps and include logic to halt the generation of frames the moment all three bodies move outside the fixed plot boundaries, ensuring the GIF only contains the relevant chaotic motion.
+
+I'll refactor the main execution block and the update_plot function accordingly.
