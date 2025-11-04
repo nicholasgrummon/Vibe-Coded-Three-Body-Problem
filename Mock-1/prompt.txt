@@ -3,5 +3,5 @@ Prompt:
 
 Gemini:
 "I'd be happy to code a Python simulation for the gravitational three-body problem.This script uses matplotlib for visualization, numpy for vector physics calculations, and a class structure to manage the state and dynamics of the bodies. The initial conditions are set such that the three bodies begin at the vertices of an equilateral triangle with zero initial velocity, which quickly leads to the expected chaotic and unstable motion.I've defined the key parameters like masses and the gravitational constant ($G$) as global constants at the top of the file, so you can easily adjust the simulation's initial conditions and speed.
-Here are the files: <3bp.py>
+Here are the files: <three_body_simulator.py>
 This script defines the Body and ThreeBodySimulator classes to handle the physics. It then uses matplotlib.animation.FuncAnimation to run the simulation steps and continuously update the plot, showing both the current position of the three masses (as large markers) and their entire historical path (as thin lines).To run this, make sure you have numpy and matplotlib installed (pip install numpy matplotlib). You can easily tweak the initial values for M1, M2, M3, G, and DT at the top of the file to explore different scenarios!"

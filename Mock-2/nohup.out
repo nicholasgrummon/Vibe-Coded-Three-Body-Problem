@@ -1,0 +1,36 @@
+Running 3-Body Problem Simulation...
+G: 0.5, dt: 0.005, Steps/Frame: 10
+Generating and saving animation to outputs/sim.gif (Total Frames: 2000, GIF FPS: 50). This may take a moment...
+Traceback (most recent call last):
+  File "/home/ncg/.virtual_envs/python_venv/lib/python3.12/site-packages/matplotlib/animation.py", line 224, in saving
+    yield self
+  File "/home/ncg/.virtual_envs/python_venv/lib/python3.12/site-packages/matplotlib/animation.py", line 1122, in save
+    anim._draw_next_frame(d, blit=False)
+  File "/home/ncg/.virtual_envs/python_venv/lib/python3.12/site-packages/matplotlib/animation.py", line 1157, in _draw_next_frame
+    self._draw_frame(framedata)
+  File "/home/ncg/.virtual_envs/python_venv/lib/python3.12/site-packages/matplotlib/animation.py", line 1789, in _draw_frame
+    self._drawn_artists = self._func(framedata, *self._args)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ncg/Documents/ThreeBodyProblem/Mock-2/three_body_simulator.py", line 173, in update_plot
+    body_points.set_color(colors)
+  File "/home/ncg/.virtual_envs/python_venv/lib/python3.12/site-packages/matplotlib/lines.py", line 1081, in set_color
+    mcolors._check_color_like(color=color)
+  File "/home/ncg/.virtual_envs/python_venv/lib/python3.12/site-packages/matplotlib/colors.py", line 249, in _check_color_like
+    raise ValueError(
+ValueError: ['r', 'g', 'b'] is not a valid value for color: supported inputs are (r, g, b) and (r, g, b, a) 0-1 float tuples; '#rrggbb', '#rrggbbaa', '#rgb', '#rgba' strings; named color strings; string reprs of 0-1 floats for grayscale values; 'C0', 'C1', ... strings for colors of the color cycle; and pairs combining one of the above with an alpha value
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ncg/Documents/ThreeBodyProblem/Mock-2/three_body_simulator.py", line 230, in <module>
+    ani.save(output_path, writer='pillow', fps=GIF_FPS)
+  File "/home/ncg/.virtual_envs/python_venv/lib/python3.12/site-packages/matplotlib/animation.py", line 1098, in save
+    with (writer.saving(self._fig, filename, dpi),
+  File "/usr/lib/python3.12/contextlib.py", line 158, in __exit__
+    self.gen.throw(value)
+  File "/home/ncg/.virtual_envs/python_venv/lib/python3.12/site-packages/matplotlib/animation.py", line 226, in saving
+    self.finish()
+  File "/home/ncg/.virtual_envs/python_venv/lib/python3.12/site-packages/matplotlib/animation.py", line 506, in finish
+    self._frames[0].save(
+    ~~~~~~~~~~~~^^^
+IndexError: list index out of range

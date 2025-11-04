@@ -1,0 +1,79 @@
+Prompt: "Errors:
+
+Running 3-Body Problem Simulation...
+
+G: 0.5, dt: 0.005, Steps/Frame: 10
+
+Generating and saving animation to outputs/sim.gif (Total Frames: 2000, GIF FPS: 50). This may take a moment...
+
+Traceback (most recent call last):
+
+  File "/home/ncg/.virtual_envs/python_venv/lib/python3.12/site-packages/matplotlib/animation.py", line 224, in saving
+
+    yield self
+
+  File "/home/ncg/.virtual_envs/python_venv/lib/python3.12/site-packages/matplotlib/animation.py", line 1122, in save
+
+    anim._draw_next_frame(d, blit=False)
+
+  File "/home/ncg/.virtual_envs/python_venv/lib/python3.12/site-packages/matplotlib/animation.py", line 1157, in _draw_next_frame
+
+    self._draw_frame(framedata)
+
+  File "/home/ncg/.virtual_envs/python_venv/lib/python3.12/site-packages/matplotlib/animation.py", line 1789, in _draw_frame
+
+    self._drawn_artists = self._func(framedata, *self._args)
+
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+  File "/home/ncg/Documents/ThreeBodyProblem/Mock-3/three_body_simulator.py", line 177, in update_plot
+
+    markers_list[i].set_data(body.r[0], body.r[1])
+
+  File "/home/ncg/.virtual_envs/python_venv/lib/python3.12/site-packages/matplotlib/lines.py", line 680, in set_data
+
+    self.set_xdata(x)
+
+  File "/home/ncg/.virtual_envs/python_venv/lib/python3.12/site-packages/matplotlib/lines.py", line 1304, in set_xdata
+
+    raise RuntimeError('x must be a sequence')
+
+RuntimeError: x must be a sequence
+
+
+
+During handling of the above exception, another exception occurred:
+
+
+
+Traceback (most recent call last):
+
+  File "/home/ncg/Documents/ThreeBodyProblem/Mock-3/three_body_simulator.py", line 233, in <module>
+
+    ani.save(output_path, writer='pillow', fps=GIF_FPS)
+
+  File "/home/ncg/.virtual_envs/python_venv/lib/python3.12/site-packages/matplotlib/animation.py", line 1098, in save
+
+    with (writer.saving(self._fig, filename, dpi),
+
+  File "/usr/lib/python3.12/contextlib.py", line 158, in __exit__
+
+    self.gen.throw(value)
+
+  File "/home/ncg/.virtual_envs/python_venv/lib/python3.12/site-packages/matplotlib/animation.py", line 226, in saving
+
+    self.finish()
+
+  File "/home/ncg/.virtual_envs/python_venv/lib/python3.12/site-packages/matplotlib/animation.py", line 506, in finish
+
+    self._frames[0].save(
+
+    ~~~~~~~~~~~~^^^
+
+IndexError: list index out of range"
+
+Gemini: I see you are encountering a RuntimeError followed by an IndexError when the animation tries to save the first frame in the Canvas document, "Three-Body Problem Simulator."
+
+The primary issue is how a single coordinate is being passed to matplotlib's set_data function for the body markers. When updating a marker that represents a single point, set_data still expects its x and y arguments to be sequences (lists or arrays), even if they only contain one element.
+
+I have updated line 177 in the update_plot function to enclose the coordinates in lists, which resolves the RuntimeError: x must be a sequence and should also eliminate the subsequent IndexError.

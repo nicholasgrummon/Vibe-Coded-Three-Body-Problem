@@ -1,0 +1,8 @@
+Prompt:
+"Adapt this code to save the animation to a gif image called "sim.gif". This gif should be saved in a folder titled "outputs" that lives in the same directory as the main script. You can remove the framework for creating a matplotlib and create only the gif. All other code should be the same."
+
+Gemini:
+"I can certainly adapt the code to save the simulation as a GIF file.
+I've updated three_body_simulator.py to include the os module, create the outputs directory, and use ani.save() instead of plt.show(). I also set a fixed frame count for the GIF and switched blit to False, which is generally required for proper saving. The resulting GIF will be saved as outputs/sim.gif.
+Here is the updated file: <three_body_simulator.py>
+The script will now calculate 2000 frames of the simulation and save the resulting animation to the file outputs/sim.gif. You'll need the Pillow library (pip install Pillow) for the GIF saving to work, in addition to numpy and matplotlib."
